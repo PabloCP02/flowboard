@@ -6,24 +6,24 @@ class User {
   final String correo;
   final String password;
   final String confirmarPassword;
-  
+
   // Constructor
-  User ({
+  User({
     required this.nombres,
     required this.apellidoPaterno,
     required this.apellidoMaterno,
     required this.correo,
     required this.password,
-    required this.confirmarPassword
+    required this.confirmarPassword,
   });
 
   // Método para convertir los atributos en formato JSON
-  Map<String, dynamic> toJson()=>{
-    "nombres" : nombres,
+  Map<String, dynamic> toJson() => {
+    "nombres": nombres,
     "apellidoPaterno": apellidoPaterno,
     "apellidoMaterno": apellidoMaterno,
-    "correo" : correo,
-    "password" : password,
-    "password_confirmation": confirmarPassword
+    "correo": correo,
+    "password": password,
+    "password_confirmation": confirmarPassword,
   };
 }

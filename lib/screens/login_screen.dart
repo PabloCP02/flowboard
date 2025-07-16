@@ -19,16 +19,17 @@ class _LoginScreenState extends State<LoginScreen> {
   void showError(String message) {
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: const Text("Error"),
-        content: Text(message),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("OK"),
-          )
-        ],
-      ),
+      builder:
+          (_) => AlertDialog(
+            title: const Text("Error"),
+            content: Text(message),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text("OK"),
+              ),
+            ],
+          ),
     );
   }
 
@@ -43,17 +44,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
     setState(() => isLoading = true);
 
-    final token = await AuthService().login(correo, password);
+    try {
+      final token = await AuthService().login(correo, password);
+      setState(() => isLoading = false);
 
-    setState(() => isLoading = false);
-
-    if (token != null) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-      );
-    } else {
-      showError("Correo o contraseña incorrectos.");
+      if (token != null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      }
+    } catch (e) {
+      setState(() => isLoading = false);
+      showError(e.toString().replaceAll('Exception: ', ''));
     }
   }
 
@@ -87,18 +90,20 @@ class _LoginScreenState extends State<LoginScreen> {
             isLoading
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
-                    onPressed: login,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 80, vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                  onPressed: login,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 80,
+                      vertical: 15,
                     ),
-                    child: const Text('Iniciar Sesión'),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
+                  child: const Text('Iniciar Sesión'),
+                ),
             const SizedBox(height: 20),
             RichText(
               text: TextSpan(

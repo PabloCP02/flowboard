@@ -5,7 +5,8 @@ import '../services/auth_service.dart';
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
-  @override@override
+  @override
+  @override
   RegisterScreenState createState() => RegisterScreenState();
 }
 
@@ -22,35 +23,43 @@ class RegisterScreenState extends State<RegisterScreen> {
   void showError(String message) {
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: const Text("Error"),
-        content: Text(message),
-        actions: [
-          TextButton(
-              onPressed: () => Navigator.pop(context), child: const Text("OK"))
-        ],
-      ),
+      builder:
+          (_) => AlertDialog(
+            title: const Text("Error"),
+            content: Text(message),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text("OK"),
+              ),
+            ],
+          ),
     );
   }
 
-  void showDialogMessage(String title, String message,
-      {bool isSuccess = false}) {
+  void showDialogMessage(
+    String title,
+    String message, {
+    bool isSuccess = false,
+  }) {
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: Text(title),
-        content: Text(message),
-        actions: [
-          TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-                if (isSuccess) {
-                  Navigator.pushReplacementNamed(context, "/");
-                }
-              },
-              child: const Text("OK"))
-        ],
-      ),
+      builder:
+          (_) => AlertDialog(
+            title: Text(title),
+            content: Text(message),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  if (isSuccess) {
+                    Navigator.pushReplacementNamed(context, "/");
+                  }
+                },
+                child: const Text("OK"),
+              ),
+            ],
+          ),
     );
   }
 
@@ -87,9 +96,16 @@ class RegisterScreenState extends State<RegisterScreen> {
     setState(() => isLoading = false);
 
     if (success) {
-      showDialogMessage("Registro exitoso", "Ya puedes iniciar sesión", isSuccess: true);
+      showDialogMessage(
+        "Registro exitoso",
+        "Ya puedes iniciar sesión",
+        isSuccess: true,
+      );
     } else {
-      showDialogMessage("Fallo al registrar", "No se pudo registrar el usuario.");
+      showDialogMessage(
+        "Fallo al registrar",
+        "No se pudo registrar el usuario.",
+      );
     }
   }
 
@@ -156,18 +172,20 @@ class RegisterScreenState extends State<RegisterScreen> {
             isLoading
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
-                    onPressed: register,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 80, vertical: 15),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                  onPressed: register,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 80,
+                      vertical: 15,
                     ),
-                    child: const Text('Registrarse'),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
+                  child: const Text('Registrarse'),
+                ),
             const SizedBox(height: 20),
             RichText(
               text: TextSpan(
